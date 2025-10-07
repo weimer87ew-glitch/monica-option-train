@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: monica-option-train
+    env: python
+    plan: free
+    region: frankfurt
+    buildCommand: |
+      pip install -r requirements.txt || pip install flask tensorflow pandas numpy requests
+    startCommand: python train_worker.py
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true
